@@ -1,0 +1,15 @@
+{
+  "hash": "c42be6183cc9e46be78c89786057297e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Das Gupta 1993 Example 4.1\"\nformat: html\neditor_options: \n  chunk_output_type: console\nexecute:\n  warning: false\n  message: false\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(DasGuptR)\n```\n:::\n\n\n\n\nData from Das Gupta 1993, p.39\nFemale intrinsic growth rate per person as a function of two vector factors: United States, 1980 and 1985 \n\n- Lx = stationary female population\n- Mx = fertility rate\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndgeg4_1 <- data.frame(\n  age_group = \n    c(\"10-15\", \"15-20\", \"20-25\", \"25-30\", \n      \"30-35\", \"35-40\", \"40-45\", \"45-50\", \"50-55\"),\n  pop = rep(c(1965, 1960), e = 9),\n  Lx = c(\n    486446, 485454, 483929, 482046, \n    479522, 475844, 470419, 462351, 450468,\n    485434, 484410, 492905, 481001, \n    478485, 474911, 469528, 461368, 449349\n  ),\n  mx = c(\n    .00041, .03416, .09584, .07915, \n    .04651, .02283, .00631, .00038, .00000,\n    .00040, .04335, .12581, .09641, \n    .05504, .02760, .00756, .00045, .00001\n  )\n)\n```\n:::\n\n\n\n\nRate function (see Das Gupta 1993, p.38)\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nRF4.1 <- function(A, B) {\n  idx <- seq_len(length(A))\n  mu0 <- sum(A * B / 100000)\n  mu1 <- sum((5 * idx + 7.5) * A * B / 100000)\n  r1 <- log(mu0) * (mu0 / mu1)\n  while (TRUE) {\n    Nr1 <- 0\n    Dr1 <- 0\n    Nr1 <- Nr1 + sum(exp(-r1 * (5 * idx + 7.5)) * A * (B / 100000))\n    Dr1 <- Dr1 - sum((5 * idx + 7.5) * exp(-r1 * (5 * idx + 7.5)) * A * (B / 100000))\n    r2 <- r1 - ((Nr1 - 1) / Dr1)\n    if (abs(r2 - r1) <= .0000001) {\n      break\n    }\n    r1 <- r2\n  }\n  return(r2)\n}\n```\n:::\n\n\n\n\ncrude rates:\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nRF4.1(A = dgeg4_1$Lx[1:9], B = dgeg4_1$mx[1:9])\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.01213679\n```\n\n\n:::\n\n```{.r .cell-code}\nRF4.1(A = dgeg4_1$Lx[10:18], B = dgeg4_1$mx[10:18])\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.02107245\n```\n\n\n:::\n:::\n\n\n\nDecomposition: \n\nNote that these results do not line up precisely with those published in Das Gupta 1993. We expect this is due to the data used here (as presented in Das Gupta 1993) being rounded to 5dp. \n\n\n::: {.cell}\n\n```{.r .cell-code}\ndgnpop(dgeg4_1,\n       pop = \"pop\", factors = c(\"Lx\", \"mx\"),\n       id_vars = \"age_group\",\n       ratefunction = \"RF4.1(Lx,mx)\"\n) |> \n  dg_table()\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n            1960       1965          diff decomp\nLx    0.01670348 0.01649276 -0.0002107213   2.36\nmx    0.02096059 0.01223564 -0.0087249423  97.64\ncrude 0.02107245 0.01213679 -0.0089356637 100.00\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

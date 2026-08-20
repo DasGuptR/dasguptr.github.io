@@ -1,0 +1,87 @@
+---
+title: "Das Gupta 1993 Example 4.1"
+format: html
+editor_options: 
+  chunk_output_type: console
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+library(DasGuptR)
+```
+
+
+Data from Das Gupta 1993, p.39
+Female intrinsic growth rate per person as a function of two vector factors: United States, 1980 and 1985 
+
+- Lx = stationary female population
+- Mx = fertility rate
+
+```{r}
+dgeg4_1 <- data.frame(
+  age_group = 
+    c("10-15", "15-20", "20-25", "25-30", 
+      "30-35", "35-40", "40-45", "45-50", "50-55"),
+  pop = rep(c(1965, 1960), e = 9),
+  Lx = c(
+    486446, 485454, 483929, 482046, 
+    479522, 475844, 470419, 462351, 450468,
+    485434, 484410, 492905, 481001, 
+    478485, 474911, 469528, 461368, 449349
+  ),
+  mx = c(
+    .00041, .03416, .09584, .07915, 
+    .04651, .02283, .00631, .00038, .00000,
+    .00040, .04335, .12581, .09641, 
+    .05504, .02760, .00756, .00045, .00001
+  )
+)
+```
+
+
+Rate function (see Das Gupta 1993, p.38)
+
+```{r}
+RF4.1 <- function(A, B) {
+  idx <- seq_len(length(A))
+  mu0 <- sum(A * B / 100000)
+  mu1 <- sum((5 * idx + 7.5) * A * B / 100000)
+  r1 <- log(mu0) * (mu0 / mu1)
+  while (TRUE) {
+    Nr1 <- 0
+    Dr1 <- 0
+    Nr1 <- Nr1 + sum(exp(-r1 * (5 * idx + 7.5)) * A * (B / 100000))
+    Dr1 <- Dr1 - sum((5 * idx + 7.5) * exp(-r1 * (5 * idx + 7.5)) * A * (B / 100000))
+    r2 <- r1 - ((Nr1 - 1) / Dr1)
+    if (abs(r2 - r1) <= .0000001) {
+      break
+    }
+    r1 <- r2
+  }
+  return(r2)
+}
+```
+
+
+crude rates:
+
+```{r}
+RF4.1(A = dgeg4_1$Lx[1:9], B = dgeg4_1$mx[1:9])
+RF4.1(A = dgeg4_1$Lx[10:18], B = dgeg4_1$mx[10:18])
+```
+
+Decomposition: 
+
+Note that these results do not line up precisely with those published in Das Gupta 1993. We expect this is due to the data used here (as presented in Das Gupta 1993) being rounded to 5dp. 
+```{r}
+dgnpop(dgeg4_1,
+       pop = "pop", factors = c("Lx", "mx"),
+       id_vars = "age_group",
+       ratefunction = "RF4.1(Lx,mx)"
+) |> 
+  dg_table()
+```
+
+
