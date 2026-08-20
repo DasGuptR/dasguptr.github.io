@@ -326,7 +326,7 @@ We vary the number of integration steps in Horiuchi (the <code>N</code> argument
 <p>For Das Gupta’s approach, increasing the number of factors involves increased computation time, as it means evaluating the rate at many more combinations of factors.</p>
 <p>Below, we vary the number of factors from 1 to 10, again with just a single subgroup, and a crude rate difference of ~.05.<br>
 In each case, the rate is calculated as a simple product of all factors, and we use 100 integration steps for Horiuchi.<br>
-For each number of factors, we simulate just 15 datasets.</p>
+For each number of factors, we simulate 50 datasets.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -334,7 +334,7 @@ For each number of factors, we simulate just 15 datasets.</p>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_grid</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">nf =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># for each sim, get decomposition effects from </span></span>
@@ -618,7 +618,7 @@ crude 44.7268 47.6940 2.9672 100.00</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.7403</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing group 1 prop</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing group 3 prop</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(hres_sub3[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>]);<span class="fu">sum</span>(hres_sub3[<span class="dv">13</span><span class="sc">:</span><span class="dv">25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.2269</code></pre>
@@ -626,7 +626,7 @@ crude 44.7268 47.6940 2.9672 100.00</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.7403</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing group 6 prop:</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing group 4 prop:</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(hres_sub4[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>]);<span class="fu">sum</span>(hres_sub4[<span class="dv">13</span><span class="sc">:</span><span class="dv">25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.2269</code></pre>
@@ -677,7 +677,7 @@ crude 44.7268 47.6940 2.9672 100.00</code></pre>
 <span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">rate =</span> rate_1985<span class="sc">-</span>rate_1970</span>
 <span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2nd subgroup weight is missing: </span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4th subgroup weight is missing: </span></span>
 <span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>dfA <span class="ot">&lt;-</span> df</span>
 <span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>dfA<span class="sc">$</span>size[df<span class="sc">$</span>age_group<span class="sc">==</span><span class="st">"30-34"</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -731,145 +731,157 @@ crude 44.7268 47.6940 2.9672 100.00</code></pre>
 </div>
 </div>
 </div>
-<p>To demonstrate where these two methods diverge, consider a scenario in which there are two populations, 20 subgroups, and 3 factors (the first of these are relative sizes of subgroups).</p>
-<p>The population rate is calculated as <span class="math inline">\(R = \sum_i a_i \cdot b_i \cdot c_i\)</span></p>
+<p>To demonstrate where these two methods diverge, consider 2 scenarios, for each of which there are two populations, 20 subgroups, and 3 factors (the first of these are relative sizes of subgroups).</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Data: </span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sdata <span class="ot">&lt;-</span> <span class="fu">simdata</span>(<span class="at">nK=</span><span class="dv">2</span>,<span class="at">nI=</span><span class="dv">20</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Das Gupta: </span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>dfdg <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"pop1"</span>,<span class="st">"pop2"</span>),<span class="at">e=</span><span class="dv">20</span>),</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sgroup =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,<span class="dv">2</span>),</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(sdata[[<span class="dv">1</span>]],<span class="at">ncol=</span><span class="dv">3</span>)),</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(sdata[[<span class="dv">2</span>]],<span class="at">ncol=</span><span class="dv">3</span>))</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dfdg)[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>dg_res <span class="ot">&lt;-</span> </span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dgnpop</span>(dfdg, <span class="at">pop =</span> <span class="st">"pop"</span>, </span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">factors =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">id_vars =</span> <span class="st">"sgroup"</span>, </span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratefunction =</span> <span class="st">"a*b*c"</span>, </span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">agg=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>factor,<span class="at">values_from=</span>rate) <span class="sc">|&gt;</span></span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>std.set) <span class="sc">|&gt;</span></span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>pop,<span class="at">values_from=</span><span class="fu">c</span>(a,b,c)) <span class="sc">|&gt;</span></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_diff =</span> a_pop2<span class="sc">-</span>a_pop1,</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_diff =</span> b_pop2<span class="sc">-</span>b_pop1,</span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">c_diff =</span> c_pop2<span class="sc">-</span>c_pop1</span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Horiuchi:  </span></span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">=</span> sdata[[<span class="dv">1</span>]]</span>
-<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">=</span> sdata[[<span class="dv">2</span>]]</span>
-<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>aggrfunc <span class="ot">=</span> <span class="cf">function</span>(x){</span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(x[,<span class="dv">1</span>] <span class="sc">*</span> x[,<span class="dv">2</span>] <span class="sc">*</span> x[,<span class="dv">3</span>])</span>
-<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>hres <span class="ot">&lt;-</span> <span class="fu">horiuchi</span>(<span class="at">func =</span> aggrfunc,</span>
-<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars1 =</span> pop1,</span>
-<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars2 =</span> pop2,</span>
-<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>                  <span class="at">N =</span> <span class="dv">100</span>)</span>
-<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>hres <span class="ot">&lt;-</span> <span class="fu">matrix</span>(hres, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sdata <span class="ot">&lt;-</span> <span class="fu">simdata</span>(<span class="at">nK=</span><span class="dv">2</span>,<span class="at">nI=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Scenario 1: population rates are calculated as straightforward products: <span class="math inline">\(R = \sum_i a_i \cdot b_i \cdot c_i\)</span><br>
+</li>
+<li>Scenario 2: population rates are calculated as: <span class="math inline">\(R = \sum_i a_i \cdot b_i \cdot c_i\)</span>. This involves a cross-group dependency, in that the contribution of <span class="math inline">\(b_i\)</span> is dependent on the values that other groups have for <span class="math inline">\(b\)</span>. (Note that we use <span class="math inline">\(b\)</span> here because it is <em>not</em> constrained to sum to 1, unlike <span class="math inline">\(a\)</span> which in our simulation is the subgroup proportions, and for which <span class="math inline">\(\frac{a_i}{\sum a} = a_i\)</span>).</li>
+</ul>
+<p><strong>Scenario 1</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Das Gupta: </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>dfdg <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"pop1"</span>,<span class="st">"pop2"</span>),<span class="at">e=</span><span class="dv">20</span>),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sgroup =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,<span class="dv">2</span>),</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(sdata[[<span class="dv">1</span>]],<span class="at">ncol=</span><span class="dv">3</span>)),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(sdata[[<span class="dv">2</span>]],<span class="at">ncol=</span><span class="dv">3</span>))</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dfdg)[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>dg_res <span class="ot">&lt;-</span> </span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dgnpop</span>(dfdg, <span class="at">pop =</span> <span class="st">"pop"</span>, </span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">factors =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">id_vars =</span> <span class="st">"sgroup"</span>, </span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratefunction =</span> <span class="st">"a*b*c"</span>, </span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">agg=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>factor,<span class="at">values_from=</span>rate) <span class="sc">|&gt;</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>std.set) <span class="sc">|&gt;</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>pop,<span class="at">values_from=</span><span class="fu">c</span>(a,b,c)) <span class="sc">|&gt;</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_diff =</span> a_pop2<span class="sc">-</span>a_pop1,</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_diff =</span> b_pop2<span class="sc">-</span>b_pop1,</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">c_diff =</span> c_pop2<span class="sc">-</span>c_pop1</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Horiuchi:  </span></span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">=</span> sdata[[<span class="dv">1</span>]]</span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">=</span> sdata[[<span class="dv">2</span>]]</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>aggrfunc <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(x[,<span class="dv">1</span>] <span class="sc">*</span> x[,<span class="dv">2</span>] <span class="sc">*</span> x[,<span class="dv">3</span>])</span>
+<span id="cb43-35"><a href="#cb43-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-36"><a href="#cb43-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-37"><a href="#cb43-37" aria-hidden="true" tabindex="-1"></a>hres <span class="ot">&lt;-</span> <span class="fu">horiuchi</span>(<span class="at">func =</span> aggrfunc,</span>
+<span id="cb43-38"><a href="#cb43-38" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars1 =</span> pop1,</span>
+<span id="cb43-39"><a href="#cb43-39" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars2 =</span> pop2,</span>
+<span id="cb43-40"><a href="#cb43-40" aria-hidden="true" tabindex="-1"></a>                  <span class="at">N =</span> <span class="dv">100</span>)</span>
+<span id="cb43-41"><a href="#cb43-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-42"><a href="#cb43-42" aria-hidden="true" tabindex="-1"></a>hres <span class="ot">&lt;-</span> <span class="fu">matrix</span>(hres, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The marginal sums of subgroup contributions are very close (as seen above).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(hres)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># horiuchi:</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(hres)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0006400499 0.0546305565 0.0011387307</code></pre>
+<pre><code>[1] -0.001316930  0.050749300 -0.000864211</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(dg_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># das gupta:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(dg_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      a_diff       b_diff       c_diff 
-0.0006400518 0.0546305583 0.0011387325 </code></pre>
+<pre><code>       a_diff        b_diff        c_diff 
+-0.0013169298  0.0507493011 -0.0008642103 </code></pre>
 </div>
 </div>
 <p>And the individual subgroup effects are also similar:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">1</span>]], <span class="at">H=</span>hres[,<span class="dv">1</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V1"</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">2</span>]], <span class="at">H=</span>hres[,<span class="dv">2</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V2"</span>)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">3</span>]], <span class="at">H=</span>hres[,<span class="dv">3</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">1</span>]], <span class="at">H=</span>hres[,<span class="dv">1</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"a"</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">2</span>]], <span class="at">H=</span>hres[,<span class="dv">2</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"b"</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res[[<span class="dv">3</span>]], <span class="at">H=</span>hres[,<span class="dv">3</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dasguptr_horiuchi_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dasguptr_horiuchi_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>However, when we move to a rate that involves a cross-group dependency, such as <span class="math inline">\(R = \sum_i a_i \cdot \frac{b_i}{\sum b} \cdot c_i\)</span>.</p>
-<p>Here, because <span class="math inline">\(b\)</span> is <strong>not</strong> constrained to sum to 1 (as <span class="math inline">\(a\)</span> is, because <span class="math inline">\(a\)</span> is the subgroup proportions), this means that contribution of <span class="math inline">\(b_i\)</span> is dependent on the values that other groups have for <span class="math inline">\(b\)</span>.</p>
+<p><strong>Scenario 2</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dg_res1 <span class="ot">&lt;-</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dgnpop</span>(dfdg, </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">pop =</span> <span class="st">"pop"</span>, </span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">factors =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">id_vars =</span> <span class="st">"sgroup"</span>, </span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratefunction =</span> <span class="st">"a * (b / sum(b)) * c"</span>, <span class="at">agg=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>factor,<span class="at">values_from=</span>rate) <span class="sc">|&gt;</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>std.set) <span class="sc">|&gt;</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>pop,<span class="at">values_from=</span><span class="fu">c</span>(a,b,c)) <span class="sc">|&gt;</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_diff =</span> a_pop2<span class="sc">-</span>a_pop1,</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_diff =</span> b_pop2<span class="sc">-</span>b_pop1,</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">c_diff =</span> c_pop2<span class="sc">-</span>c_pop1</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">=</span> sdata[[<span class="dv">1</span>]]</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">=</span> sdata[[<span class="dv">2</span>]]</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>aggrfunc <span class="ot">=</span> <span class="cf">function</span>(x){</span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(x[,<span class="dv">1</span>] <span class="sc">*</span> (x[,<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x[,<span class="dv">2</span>])) <span class="sc">*</span> x[,<span class="dv">3</span>])</span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>hres1 <span class="ot">&lt;-</span> <span class="fu">horiuchi</span>(<span class="at">func =</span> aggrfunc,</span>
-<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars1 =</span> pop1,</span>
-<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars2 =</span> pop2,</span>
-<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">N =</span> <span class="dv">100</span>)</span>
-<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>hres1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(hres1, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>dg_res1 <span class="ot">&lt;-</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dgnpop</span>(dfdg, </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">pop =</span> <span class="st">"pop"</span>, </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">factors =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>),</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">id_vars =</span> <span class="st">"sgroup"</span>, </span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratefunction =</span> <span class="st">"a * (b / sum(b)) * c"</span>, <span class="at">agg=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>factor,<span class="at">values_from=</span>rate) <span class="sc">|&gt;</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>std.set) <span class="sc">|&gt;</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>pop,<span class="at">values_from=</span><span class="fu">c</span>(a,b,c)) <span class="sc">|&gt;</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_diff =</span> a_pop2<span class="sc">-</span>a_pop1,</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_diff =</span> b_pop2<span class="sc">-</span>b_pop1,</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">c_diff =</span> c_pop2<span class="sc">-</span>c_pop1</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">=</span> sdata[[<span class="dv">1</span>]]</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">=</span> sdata[[<span class="dv">2</span>]]</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>aggrfunc <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(x[,<span class="dv">1</span>] <span class="sc">*</span> (x[,<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x[,<span class="dv">2</span>])) <span class="sc">*</span> x[,<span class="dv">3</span>])</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>hres1 <span class="ot">&lt;-</span> <span class="fu">horiuchi</span>(<span class="at">func =</span> aggrfunc,</span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars1 =</span> pop1,</span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pars2 =</span> pop2,</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">N =</span> <span class="dv">100</span>)</span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>hres1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(hres1, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now we start to see differences in both marginal totals (slightly more so for <span class="math inline">\(b\)</span>), and subgroup specific <span class="math inline">\(b\)</span> contributions:</p>
+<p>Here we start to see differences in both marginal totals (slightly more so for <span class="math inline">\(b\)</span>), and subgroup specific <span class="math inline">\(b\)</span> contributions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(hres1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># horiuchi:</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(hres1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0004630014 0.0016597231 0.0008011704</code></pre>
+<pre><code>[1] -0.0006723435 -0.0012733105 -0.0004435879</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(dg_res1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># das gupta: </span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(dg_res1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      a_diff       b_diff       c_diff 
-0.0005061009 0.0016081531 0.0008096777 </code></pre>
+<pre><code>       a_diff        b_diff        c_diff 
+-0.0006596329 -0.0012910649 -0.0004385502 </code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">1</span>]], <span class="at">H=</span>hres1[,<span class="dv">1</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V1"</span>)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">2</span>]], <span class="at">H=</span>hres1[,<span class="dv">2</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V2"</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">3</span>]], <span class="at">H=</span>hres1[,<span class="dv">3</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"V3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">1</span>]], <span class="at">H=</span>hres1[,<span class="dv">1</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"a"</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">2</span>]], <span class="at">H=</span>hres1[,<span class="dv">2</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"b"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">DG=</span>dg_res1[[<span class="dv">3</span>]], <span class="at">H=</span>hres1[,<span class="dv">3</span>]) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">main=</span><span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dasguptr_horiuchi_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dasguptr_horiuchi_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

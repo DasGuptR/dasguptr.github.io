@@ -219,7 +219,7 @@ For Das Gupta's approach, increasing the number of factors involves increased co
 
 Below, we vary the number of factors from 1 to 10, again with just a single subgroup, and a crude rate difference of ~.05.  
 In each case, the rate is calculated as a simple product of all factors, and we use 100 integration steps for Horiuchi.  
-For each number of factors, we simulate just 15 datasets.  
+For each number of factors, we simulate 50 datasets.  
 ```{r}
 #| eval: false
 #| code-fold: true
@@ -227,7 +227,7 @@ For each number of factors, we simulate just 15 datasets.
 res2 <- 
   expand_grid(
     nf = c(2:10),
-    sims = 1:15
+    sims = 1:50
   )
 
 # for each sim, get decomposition effects from 
@@ -469,9 +469,9 @@ The overall marginal totals remain the same:
 ```{r}
 # full vector
 sum(hres0[1:13]);sum(hres0[14:26])
-# missing group 1 prop
+# missing group 3 prop
 sum(hres_sub3[1:12]);sum(hres_sub3[13:25])
-# missing group 6 prop:
+# missing group 4 prop:
 sum(hres_sub4[1:12]);sum(hres_sub4[13:25])
 ```
 
@@ -513,7 +513,7 @@ dgres_sub3 <-
     rate = rate_1985-rate_1970
   )
 
-# 2nd subgroup weight is missing: 
+# 4th subgroup weight is missing: 
 dfA <- df
 dfA$size[df$age_group=="30-34"] <- 0
 
@@ -552,16 +552,22 @@ cbind(
 ```
 
 
-To demonstrate where these two methods diverge, consider a scenario in which there are two populations, 20 subgroups, and 3 factors (the first of these are relative sizes of subgroups). 
-
-The population rate is calculated as $R = \sum_i a_i \cdot b_i \cdot c_i$
+To demonstrate where these two methods diverge, consider 2 scenarios, for each of which there are two populations, 20 subgroups, and 3 factors (the first of these are relative sizes of subgroups). 
 
 ```{r}
 #| code-fold: true
-
 ## Data: 
 sdata <- simdata(nK=2,nI=20)
+```
 
+- Scenario 1: population rates are calculated as straightforward products: $R = \sum_i a_i \cdot b_i \cdot c_i$  
+- Scenario 2: population rates are calculated as: $R = \sum_i a_i \cdot b_i \cdot c_i$. This involves a cross-group dependency, in that the contribution of $b_i$ is dependent on the values that other groups have for $b$. (Note that we use $b$ here because it is *not* constrained to sum to 1, unlike $a$ which in our simulation is the subgroup proportions, and for which $\frac{a_i}{\sum a} = a_i$). 
+
+
+**Scenario 1**  
+
+```{r}
+#| code-fold: true
 ## Das Gupta: 
 dfdg <- cbind(
   pop = rep(c("pop1","pop2"),e=20),
@@ -608,7 +614,9 @@ hres <- matrix(hres, ncol = 3)
 
 The marginal sums of subgroup contributions are very close (as seen above). 
 ```{r}
+# horiuchi:
 colSums(hres)
+# das gupta:
 colSums(dg_res)
 ```
 
@@ -616,14 +624,12 @@ And the individual subgroup effects are also similar:
 ```{r}
 #| code-fold: true
 par(mfrow=c(1,3))
-cbind(DG=dg_res[[1]], H=hres[,1]) |> plot(main="V1")
-cbind(DG=dg_res[[2]], H=hres[,2]) |> plot(main="V2")
-cbind(DG=dg_res[[3]], H=hres[,3]) |> plot(main="V3")
+cbind(DG=dg_res[[1]], H=hres[,1]) |> plot(main="a")
+cbind(DG=dg_res[[2]], H=hres[,2]) |> plot(main="b")
+cbind(DG=dg_res[[3]], H=hres[,3]) |> plot(main="c")
 ```
 
-However, when we move to a rate that involves a cross-group dependency, such as $R = \sum_i a_i \cdot \frac{b_i}{\sum b} \cdot c_i$. 
-
-Here, because $b$ is **not** constrained to sum to 1 (as $a$ is, because $a$ is the subgroup proportions), this means that contribution of $b_i$ is dependent on the values that other groups have for $b$.  
+**Scenario 2**  
 
 ```{r}
 #| code-fold: true
@@ -656,16 +662,18 @@ hres1 <- horiuchi(func = aggrfunc,
 hres1 <- matrix(hres1, ncol = 3)
 ```
 
-Now we start to see differences in both marginal totals (slightly more so for $b$), and subgroup specific $b$ contributions: 
+Here we start to see differences in both marginal totals (slightly more so for $b$), and subgroup specific $b$ contributions: 
 ```{r}
+# horiuchi:
 colSums(hres1)
+# das gupta: 
 colSums(dg_res1)
 ```
 
 ```{r}
 #| code-fold: true
 par(mfrow=c(1,3))
-cbind(DG=dg_res1[[1]], H=hres1[,1]) |> plot(main="V1")
-cbind(DG=dg_res1[[2]], H=hres1[,2]) |> plot(main="V2")
-cbind(DG=dg_res1[[3]], H=hres1[,3]) |> plot(main="V3")
+cbind(DG=dg_res1[[1]], H=hres1[,1]) |> plot(main="a")
+cbind(DG=dg_res1[[2]], H=hres1[,2]) |> plot(main="b")
+cbind(DG=dg_res1[[3]], H=hres1[,3]) |> plot(main="c")
 ```
