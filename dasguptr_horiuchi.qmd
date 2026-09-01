@@ -14,6 +14,7 @@ file.copy("dgh_res1.rdata","docs/dgh_res1.rdata")
 file.copy("dgh_res2.rdata","docs/dgh_res2.rdata")
 file.copy("dgh_res3.rdata","docs/dgh_res3.rdata")
 file.copy("dgh_res4.rdata","docs/dgh_res4.rdata")
+options(digits=4)
 ```
 
 
@@ -553,7 +554,7 @@ cbind(
 
 ## retreiving Horiuchi's results with Das Gupta. 
 
-To try and make Das Gupta's approach obtain the same subgroup specific contributions as Horiuchi, we need to reparameterise it slightly differently.
+To try and make Das Gupta's approach obtain the same subgroup specific contributions as Horiuchi when one proportion is omitted, we need to reparameterise it slightly differently.  
 
 If we take a given subgroup, $j$, and express the subgroup proportion as: 
 $$
