@@ -551,6 +551,90 @@ cbind(
   as.data.frame() |> plot()
 ```
 
+## retreiving Horiuchi's results with Das Gupta. 
+
+To try and make Das Gupta's approach obtain the same subgroup specific contributions as Horiuchi, we need to reparameterise it slightly differently.
+
+If we take a given subgroup, $j$, and express the subgroup proportion as: 
+$$
+P_j = 1 - \sum_{i \neq j} P_i
+$$
+Instead of expressing the crude rate as:  
+$$
+CR = \sum_{i} P_i \cdot R_i
+$$
+And we can expand this to:
+$$
+CR = R_j + \sum_{i \neq j} P_i (R_i - R_j)
+$$
+Provided we store $R_j$ in a separate column, we can then remove the row for subgroup $j$ entirely from the dataset: 
+
+```{r}
+dfA <- df |> 
+  group_by(pop) |>
+  mutate(
+    ratej = rate[age_group == "25-29"],
+    rate_excess = rate-ratej
+  ) |> ungroup() |>
+  filter(age_group != "25-29")
+```
+
+The tricky part of forcing this into Das Gupta's approach is that while we separate out the reference subgroup $j$'s rate into a distinct component in the calculation of the rate, the number of factors we want to consider for the decomposition hasn't increased. Using `factors = c("ratej","size","rate_excess")` will do a 3 factor decomposition, whereas we only want 2.  
+
+A slightly hacky solution is to create a list column containing both the $rate-rate_j$ values as well as the value of $rate_j$. That way  we preserve having just 2 factors (each column is treated as a factor in `dgnpop()`):  
+
+```{r}
+dfA <- 
+  dfA |> 
+  mutate(
+    listrate = map2(rate_excess, ratej,~list(..1,..2))
+  )
+```
+
+We now have a `listrate` column where each entry is a list of length 2, with the 2nd entry being the reference group $j$'s rate. 
+
+Inside the function we give to calculate the rate, we can then `unlist()` this, and get a vector for which the even entries are all just the value of $rate_j$, and the odd entries are $rate_i - rate_j$. 
+
+So we can do the same decomposition as previously, but now using:  
+```{r}
+dgnpop(dfA, 
+       pop="pop", 
+       factors=c("size","listrate"),
+       id_vars = "age_group",
+       ratefunction = "unlist(listrate)[2] +
+              sum(size * unlist(listrate)[seq(1,24,2)])")  |>
+  dg_table()
+```
+
+And the subgroup specific contributions will match those of Horiuchi (when we omit subgroup $j$ from Horiuchi): 
+
+```{r}
+#| code-fold: true
+dgres_sub3B <- 
+  dgnpop(dfA, 
+       pop="pop", 
+       factors=c("size","listrate"),
+       id_vars = "age_group",
+       # remove the sum() because we don't want aggregate-level:
+       ratefunction = "unlist(listrate)[2] +
+              size * unlist(listrate)[seq(1,24,2)]",
+       agg = FALSE) |>
+  select(-std.set) |>
+  pivot_wider(names_from=factor,values_from=rate) |>
+  pivot_wider(names_from=pop,values_from=c(size,listrate)) |>
+  transmute(
+    size = size_1985-size_1970,
+    rate = listrate_1985-listrate_1970
+  )
+
+cbind(
+  DG = dgres_sub3B$size, 
+  H = hres_sub3[1:12]
+) |> plot()
+```
+
+
+## demonstrating the divergence
 
 To demonstrate where these two methods diverge, consider 2 scenarios, for each of which there are two populations, 20 subgroups, and 3 factors (the first of these are relative sizes of subgroups). 
 
@@ -561,7 +645,7 @@ sdata <- simdata(nK=2,nI=20)
 ```
 
 - Scenario 1: population rates are calculated as straightforward products: $R = \sum_i a_i \cdot b_i \cdot c_i$  
-- Scenario 2: population rates are calculated as: $R = \sum_i a_i \cdot b_i \cdot c_i$. This involves a cross-group dependency, in that the contribution of $b_i$ is dependent on the values that other groups have for $b$. (Note that we use $b$ here because it is *not* constrained to sum to 1, unlike $a$ which in our simulation is the subgroup proportions, and for which $\frac{a_i}{\sum a} = a_i$). 
+- Scenario 2: population rates are calculated as: $R = \sum_i a_i \cdot \frac{b_i}{\sum b} \cdot c_i$. This involves a cross-group dependency, in that the contribution of $b_i$ is dependent on the values that other groups have for $b$. (Note that we use $b$ here because it is *not* constrained to sum to 1, unlike $a$ which in our simulation is the subgroup proportions, and for which $\frac{a_i}{\sum a} = a_i$). 
 
 
 **Scenario 1**  
